@@ -1,0 +1,67 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string",
+            "pattern": "^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$"
+        },
+        "workspaceSettingName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "description": "Describes an Azure resource.",
+                    "properties": {
+                        "id": {
+                            "description": "Resource Id",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "Resource name",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "type": {
+                            "description": "Resource type",
+                            "readOnly": true,
+                            "type": "string"
+                        }
+                    },
+                    "type": "object",
+                    "x-ms-azure-resource": true
+                }
+            ],
+            "description": "Configures where to store the OMS agent data for workspaces under a scope",
+            "properties": {
+                "properties": {
+                    "description": "Workspace setting data",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "scope": {
+                            "description": "All the VMs in this scope will send their security data to the mentioned workspace unless overridden by a setting with more specific scope",
+                            "type": "string"
+                        },
+                        "workspaceId": {
+                            "description": "The full Azure ID of the workspace to save the data in",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "workspaceId",
+                        "scope"
+                    ],
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
